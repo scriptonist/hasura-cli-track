@@ -72,7 +72,7 @@ jobs:
       run: cargo build --release
     - uses: actions/upload-artifact@v3
       with:
-        name: hasura-cli-trackr-windows-amd64
+        name: hasura-cli-track-windows-amd64
         path: ./target/release/hasura-cli-track.exe
         retention-days: 6
 
