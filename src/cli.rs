@@ -1,40 +1,35 @@
-use super::hasura;
+use crate::commands;
 use anyhow::Result;
-use clap::Parser;
+use clap::{Parser, Subcommand};
 
 #[derive(Parser)]
-#[command(name = "hasura-track-all")]
+#[command(name = "hasura-track")]
 #[command(author = "scriptonist")]
 #[command(version = "0.1")]
-#[command(about = "Hasura CLI plugin to track all tables in a database")]
+#[command(about = "Hasura CLI plugin that help you track stuff")]
 pub struct Cli {
     #[arg(long)]
-    endpoint: String,
+    pub endpoint: String,
     #[arg(long)]
-    database_name: String,
-    #[arg(long)]
-    schema: String,
-    #[arg(long)]
-    admin_secret: Option<String>,
+    pub admin_secret: Option<String>,
+
+    #[command(subcommand)]
+    command: Commands,
 }
 
-impl Cli {
-    pub async fn run(&self) -> Result<()> {
-        let client = hasura::Client::new(self.endpoint.clone(), self.admin_secret.clone())?;
-        let tables = client.get_table_names(&self.database_name).await?;
-        for table in tables {
-            client
-                .track_pg_table(
-                    self.database_name.clone(),
-                    table.table_name.clone(),
-                    table.table_schema.clone(),
-                )
-                .await?;
-            println!(
-                "tracked {} in {} schema",
-                &table.table_name, &table.table_schema
-            );
-        }
-        Ok(())
-    }
+#[derive(Subcommand)]
+pub enum Commands {
+    Table(commands::tables::Cmd),
+}
+
+impl Cli {}
+
+pub async fn main() -> Result<()> {
+    let cli = Cli::parse();
+
+    match &cli.command {
+        Commands::Table(cmd) => cmd.run(&cli).await?,
+    };
+
+    Ok(())
 }

@@ -959,11 +959,12 @@ dependencies = [
 ]
 
 [[package]]
-name = "track-all"
+name = "track"
 version = "0.1.0"
 dependencies = [
  "anyhow",
  "clap",
+ "console",
  "indicatif",
  "reqwest",
  "serde",

@@ -152,8 +152,7 @@ FROM (
                 }),
             }),
         };
-        println!("{}", serde_json::to_string_pretty(&req)?);
-        self.send(self.endpoint.join("v1/metadata")?, req).await?;
+        let _: serde_json::Value = self.send(self.endpoint.join("v1/metadata")?, req).await?;
 
         Ok(true)
     }
