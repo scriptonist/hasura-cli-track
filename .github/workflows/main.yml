@@ -1,0 +1,118 @@
+name: "Build hasura-cli-track"
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+
+  job-macos-1:
+    name: "Build the macOS / AMD64 version of hasura-cli-track"
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: "Remove Rust documentation"
+      run: rustup component remove rust-docs
+      continue-on-error: true
+    - name: "Update Rust to the latest stable version"
+      run: rustup update stable
+    - name: Build release version
+      run: cargo build --release
+    - name: "Brag #1"
+      run: find ./target -name "hasura-cli-track"
+    - uses: actions/upload-artifact@v3
+      with:
+        name: hasura-cli-track-macos-amd64
+        path: ./target/release/hasura-cli-track
+        retention-days: 6
+
+  job-linux-1:
+    name: "Build the Linux / AMD64 version of hasura-cli-track"
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: "Install GCC"
+      run: |
+        sudo apt update
+        sudo apt install -y build-essential
+        gcc --version
+    - name: "Add support for MUSL"
+      run: |
+        sudo apt update
+        sudo apt install -y musl-tools
+        rustup target add $(uname -m)-unknown-linux-musl
+    - name: "Remove Rust documentation"
+      run: rustup component remove rust-docs
+      continue-on-error: true
+    - name: "Update Rust to the latest stable version"
+      run: rustup update stable
+    - name: Build release version
+      run: cargo build --target $(uname -m)-unknown-linux-musl --release
+    - name: "Brag #1"
+      run: find ./target -name "hasura-cli-track"
+    - uses: actions/upload-artifact@v3
+      with:
+        name: hasura-cli-track-linux-amd64
+        path: ./target/x86_64-unknown-linux-musl/release/hasura-cli-track
+        retention-days: 6
+
+  job-windows-1:
+    name: "Build the Windows / AMD64 version of hasura-cli-track"
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: "Remove Rust documentation"
+      run: rustup component remove rust-docs
+      continue-on-error: true
+    - name: "Update Rust to the latest stable version"
+      run: rustup update stable
+    - name: Build release version
+      run: cargo build --release
+    - uses: actions/upload-artifact@v3
+      with:
+        name: hasura-cli-trackr-windows-amd64
+        path: ./target/release/hasura-cli-track.exe
+        retention-days: 6
+
+  job-publish:
+    name: "Publish an update"
+    runs-on: ubuntu-latest
+    needs:
+      - job-linux-1
+      - job-macos-1
+      - job-windows-1      
+    steps:
+      - name: "Download the Linux version"
+        uses: actions/download-artifact@v3
+        with:
+          name: hasura-cli-track-linux-amd64
+          path: ./release/linux/amd64
+      - name: "Download the macOS version"
+        uses: actions/download-artifact@v3
+        with:
+          name: hasura-cli-track-macos-amd64
+          path: ./release/macos/amd64
+      - name: "Download the Windows version"
+        uses: actions/download-artifact@v3
+        with:
+          name: hasura-cli-track-windows-amd64
+          path: ./release/windows/amd64
+      - name: "Create a staging area"
+        run: mkdir stage
+      - name: "Rename the artifacts to include the operating system and architecture."
+        run: |
+          mv ./release/linux/amd64/hasura-cli-trackr ./stage/hasura-cli-track.linux.amd64
+          mv ./release/macos/amd64/hasura-cli-track ./stage/hasura-cli-track.macos.amd64
+          mv ./release/windows/amd64/hasura-cli-track.exe ./stage/hasura-cli-track.windows.amd64
+      - name: "Brag #1"
+        run: find ./release
+      - name: "Brag #2"
+        run: find ./stage
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        id: release
+        with:
+          tag_name: "current"
+          files: |
+            ./stage/*
