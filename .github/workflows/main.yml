@@ -103,7 +103,7 @@ jobs:
         run: mkdir stage
       - name: "Rename the artifacts to include the operating system and architecture."
         run: |
-          mv ./release/linux/amd64/hasura-cli-trackr ./stage/hasura-cli-track.linux.amd64
+          mv ./release/linux/amd64/hasura-cli-track ./stage/hasura-cli-track.linux.amd64
           mv ./release/macos/amd64/hasura-cli-track ./stage/hasura-cli-track.macos.amd64
           mv ./release/windows/amd64/hasura-cli-track.exe ./stage/hasura-cli-track.windows.amd64
       - name: "Brag #1"
