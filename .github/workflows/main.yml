@@ -105,19 +105,21 @@ jobs:
       - name: "Rename the artifacts to include the operating system and architecture."
         run: |
           mv ./release/linux/amd64/hasura-cli-track ./stage/hasura-cli-track-linux-amd64
+          chmod +x ./stage/hasura-cli-track-linux-amd64
           mv ./release/macos/amd64/hasura-cli-track ./stage/hasura-cli-track-macos-amd64
+          chmod +x ./stage/hasura-cli-track-macos-amd64
           mv ./release/windows/amd64/hasura-cli-track.exe ./stage/hasura-cli-track-windows-amd64.exe
       - name: "Compress binaries"
         working-directory: ./stage
         run: |          
           tar -czvf hasura-cli-track-linux-amd64.tar.gz hasura-cli-track-linux-amd64
-          sha256sum hasura-cli-track-linux-amd64 > hasura-cli-track-linux-amd64.sha256
+          sha256sum hasura-cli-track-linux-amd64.tar.gz > hasura-cli-track-linux-amd64.tar.gz.sha256
           
           tar -czvf hasura-cli-track-macos-amd64.tar.gz hasura-cli-track-macos-amd64 
-          sha256sum hasura-cli-track-macos-amd64 > hasura-cli-track-macos-amd64.sha256
+          sha256sum hasura-cli-track-macos-amd64.tar.gz > hasura-cli-track-macos-amd64.tar.gz.sha256
           
           zip hasura-cli-track-windows-amd64.exe.zip hasura-cli-track-windows-amd64.exe
-          sha256sum hasura-cli-track-windows-amd64.exe > hasura-cli-track-windows-amd64.exe.sha256
+          sha256sum hasura-cli-track-windows-amd64.exe.zip > hasura-cli-track-windows-amd64.exe.zip.sha256
           
       - name: "Brag #1"
         run: find ./release
