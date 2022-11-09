@@ -6,7 +6,7 @@ use clap::{Parser, Subcommand};
 #[command(name = "hasura-track")]
 #[command(author = "scriptonist")]
 #[command(version = "0.1")]
-#[command(about = "Hasura CLI plugin that help you track stuff")]
+#[command(about = "CLI plugin which allows to database entities in hasura")]
 pub struct Cli {
     #[arg(long)]
     pub endpoint: String,
