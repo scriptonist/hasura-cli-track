@@ -32,11 +32,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    - name: "Install GCC"
+    - name: "Install GCC & open SSL"
       run: |
         sudo apt update
         sudo apt install -y build-essential
         gcc --version
+        sudo apt-get install pkg-config libssl-dev
     - name: "Add support for MUSL"
       run: |
         sudo apt update
