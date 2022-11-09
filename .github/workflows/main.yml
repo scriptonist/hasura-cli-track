@@ -124,10 +124,13 @@ jobs:
         run: find ./release
       - name: "Brag #2"
         run: find ./stage
+      - name: Get tag
+        id: tag
+        uses: dawidd6/action-get-tag@v1
       - name: Release
         uses: softprops/action-gh-release@v1
         id: release
         with:
-          tag_name: "current"
+          tag_name: ${{steps.tag.outputs.tag}}
           files: |
             ./stage/*
