@@ -107,18 +107,17 @@ jobs:
           mv ./release/linux/amd64/hasura-cli-track ./stage/hasura-cli-track.linux.amd64
           mv ./release/macos/amd64/hasura-cli-track ./stage/hasura-cli-track.macos.amd64
           mv ./release/windows/amd64/hasura-cli-track.exe ./stage/hasura-cli-track.windows.amd64
-#       - name: "Compress binaries"
-#         run: |
-#           cd ./stage
+      - name: "Compress binaries"
+        working-directory: ./stage
+        run: |          
+          tar -czvf hasura-cli-track.linux.amd64.tar.gz hasura-cli-track.linux.amd64
+          sha256sum hasura-cli-track.linux.amd64.tar.gz > hasura-cli-track.linux.amd64.tar.gz.sha256
           
-#           tar -czvf hasura-cli-track.linux.amd64.tar.gz hasura-cli-track.linux.amd64
-#           sha256sum hasura-cli-track.linux.amd64.tar.gz > hasura-cli-track.linux.amd64.tar.gz.sha256
+          tar -czvf hasura-cli-track.macos.amd64.tar.gz hasura-cli-track.macos.amd64 
+          sha256sum hasura-cli-track.macos.amd64.tar.gz > hasura-cli-track.macos.amd64.tar.gz.sha256
           
-#           tar -czvf hasura-cli-track.macos.amd64.tar.gz hasura-cli-track.macos.amd64 
-#           sha256sum hasura-cli-track.macos.amd64.tar.gz > hasura-cli-track.macos.amd64.tar.gz.sha256
-          
-#           zip hasura-cli-track.windows.amd64.zip hasura-cli-track.windows.amd64
-#           sha256sum hasura-cli-track.windows.amd64.zip > hasura-cli-track.windows.amd64.zip.sha256
+          zip hasura-cli-track.windows.amd64.zip hasura-cli-track.windows.amd64
+          sha256sum hasura-cli-track.windows.amd64.zip > hasura-cli-track.windows.amd64.zip.sha256
           
       - name: "Brag #1"
         run: find ./release
