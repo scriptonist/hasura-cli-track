@@ -4,7 +4,6 @@ use clap::Args;
 use console::style;
 use console::Emoji;
 use indicatif::{HumanDuration, ProgressBar, ProgressStyle};
-use std::thread;
 use std::time::{Duration, Instant};
 
 static HEAVY_CHECK: Emoji<'_, '_> = Emoji("✅ ", ":-)");
@@ -40,7 +39,6 @@ impl Cmd {
         pb.enable_steady_tick(Duration::from_millis(120));
         let mut errors: Vec<anyhow::Error> = vec![];
         for (idx, table) in tables.iter().enumerate() {
-            thread::sleep(std::time::Duration::from_secs(1));
             pb.set_prefix(format!("{}/{}", idx, tables.len()));
             let prepend_emoji = |emoji| {
                 format!(
@@ -76,13 +74,13 @@ impl Cmd {
         }
         if errors.is_empty() {
             pb.finish_with_message(format!(
-                "{} Done (Elapsed: {})",
+                "{} Done ({})",
                 SPARKLE,
                 HumanDuration(started.elapsed())
             ));
         } else {
             pb.finish_with_message(format!(
-                "{} Finished with errors. (Elapsed: {})",
+                "{} Finished with errors. ({})",
                 CROSS,
                 HumanDuration(started.elapsed())
             ));
