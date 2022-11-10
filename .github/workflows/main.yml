@@ -125,7 +125,7 @@ jobs:
       - name: "Generate Manifest"
         working-directory: ./stage
         run: |          
-          cp ../scripts/generate_manifest.sh $(pwd)
+          ../scripts/generate_manifest.sh $(pwd)
       
       - name: "Brag #1"
         run: find ./release
