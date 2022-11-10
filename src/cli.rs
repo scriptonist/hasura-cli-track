@@ -8,9 +8,9 @@ use clap::{Parser, Subcommand};
 #[command(version = "0.1")]
 #[command(about = "CLI plugin which allows to database entities in hasura")]
 pub struct Cli {
-    #[arg(long)]
+    #[arg(long, env = "HASURA_GRAPHQL_ENDPOINT")]
     pub endpoint: String,
-    #[arg(long)]
+    #[arg(long, env = "HASURA_GRAPHQL_ADMIN_SECRET")]
     pub admin_secret: Option<String>,
 
     #[command(subcommand)]
