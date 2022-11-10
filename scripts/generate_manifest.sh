@@ -4,11 +4,13 @@ set -evo pipefail
 
 # utility script to generate manifest file given a release
 
+BASE_DIR="$1"
+
 HEAD_URL='https://github.com/scriptonist/hasura-cli-track/releases/download';
 
-LINUX_AMD64_ASSET='hasura-cli-track-linux-amd64.tar.gz' 
-MACOS_AMD64_ASSET='hasura-cli-track-macos-amd64.tar.gz' 
-WINDOWS_AMD64_ASSET='hasura-cli-track-windows-amd64.exe.zip'
+LINUX_AMD64_ASSET="${BASE_DIR}/hasura-cli-track-linux-amd64.tar.gz" 
+MACOS_AMD64_ASSET="${BASE_DIR}/hasura-cli-track-macos-amd64.tar.gz"
+WINDOWS_AMD64_ASSET="${BASE_DIR}/hasura-cli-track-windows-amd64.exe.zip"
 
 LINUX_AMD64_ASSET_SHA256=$(cat ${LINUX_AMD64_ASSET}.sha256 | awk '{print $1}')
 MACOS_AMD64_ASSET_SHA256=$(cat ${MACOS_AMD64_ASSET}.sha256 | awk '{print $1}')
