@@ -1,6 +1,6 @@
 # hasura-cli-track
 
-Hasura CLI plugin which helps track tables and relationships in Hasura [NOT OFFICIAL]
+Hasura CLI plugin which helps track tables in Hasura [NOT OFFICIAL]
 
 ## Usage
 
