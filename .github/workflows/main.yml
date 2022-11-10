@@ -123,7 +123,7 @@ jobs:
       - name: "Generate Manifest"
         working-directory: ./stage
         run: |          
-          cp ${GITHUB_WORKSPACE}/scripts/* .
+          cp ../scripts/* .
           ./generate_manifest.sh
           
       - name: "Brag #1"
