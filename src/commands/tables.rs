@@ -39,11 +39,10 @@ impl Cmd {
         pb.enable_steady_tick(Duration::from_millis(120));
         let mut errors: Vec<anyhow::Error> = vec![];
         for (idx, table) in tables.iter().enumerate() {
-            pb.set_prefix(format!("{}/{}", idx, tables.len()));
             let prepend_emoji = |emoji| {
                 format!(
                     "{}/{} {} {}.{}",
-                    style(idx),
+                    style(idx + 1),
                     style(tables.len()),
                     emoji,
                     style(&table.table_schema).bold().dim(),

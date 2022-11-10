@@ -19,7 +19,7 @@ pub struct Cli {
 
 #[derive(Subcommand)]
 pub enum Commands {
-    Table(commands::tables::Cmd),
+    Tables(commands::tables::Cmd),
 }
 
 impl Cli {}
@@ -28,7 +28,7 @@ pub async fn main() -> Result<()> {
     let cli = Cli::parse();
 
     match &cli.command {
-        Commands::Table(cmd) => cmd.run(&cli).await?,
+        Commands::Tables(cmd) => cmd.run(&cli).await?,
     };
 
     Ok(())
