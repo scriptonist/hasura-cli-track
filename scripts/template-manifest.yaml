@@ -1,0 +1,27 @@
+name: track
+version: "v0.0.1"
+shortDescription: "CLI plugin which allows to database entities in hasura"
+homepage: https://github.com/scriptonist/hasura-cli-track
+hidden: true
+platforms:
+  - uri: ""
+    sha256: ""
+    bin: hasura-track
+    files:
+      - from: ./hasura-cli-track-linux-amd64
+        to: hasura-track
+    selector: linux-amd64
+  - uri: ""
+    sha256: ""
+    bin: hasura-track
+    files:
+      - from: ./hasura-cli-track-macos-amd64
+        to: hasura-track
+    selector: darwin-amd64
+  - uri: ""
+    sha256: ""
+    bin: hasura-track.exe
+    files:
+      - from: ./hasura-cli-track-windows-amd64.exe
+        to: hasura-track.exe
+    selector: windows-amd64

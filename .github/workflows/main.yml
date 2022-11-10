@@ -120,6 +120,11 @@ jobs:
           
           zip hasura-cli-track-windows-amd64.exe.zip hasura-cli-track-windows-amd64.exe
           sha256sum hasura-cli-track-windows-amd64.exe.zip > hasura-cli-track-windows-amd64.exe.zip.sha256
+      - name: "Generate Manifest"
+        working-directory: ./stage
+        run: |          
+          cp ${GITHUB_WORKSPACE}/scripts/* .
+          ./generate_manifest.sh
           
       - name: "Brag #1"
         run: find ./release
