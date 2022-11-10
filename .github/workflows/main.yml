@@ -85,6 +85,8 @@ jobs:
       - job-macos-1
       - job-windows-1      
     steps:
+      - name: "Checkout"
+        uses: actions/checkout@master
       - name: "Download the Linux version"
         uses: actions/download-artifact@v3
         with:
@@ -125,7 +127,7 @@ jobs:
         run: |          
           cp ../scripts/* .
           ./generate_manifest.sh
-          
+      
       - name: "Brag #1"
         run: find ./release
       - name: "Brag #2"
