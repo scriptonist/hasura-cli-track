@@ -1,6 +1,6 @@
 name: track
 version: "v0.0.1"
-shortDescription: "CLI plugin which allows to database entities in hasura"
+shortDescription: "CLI plugin which allows to track database entities in hasura"
 homepage: https://github.com/scriptonist/hasura-cli-track
 hidden: true
 platforms:
