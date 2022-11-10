@@ -125,7 +125,7 @@ jobs:
       - name: "Generate Manifest"
         working-directory: ./stage
         run: |          
-          ${GITHUB_WORKSPACE}/scripts/generate_manifest.sh $(pwd)
+          ${GITHUB_WORKSPACE}/scripts/generate_manifest.sh $(pwd) ${GITHUB_WORKSPACE}/scripts/template-manifest.yaml
       
       - name: "Brag #1"
         run: find ./release

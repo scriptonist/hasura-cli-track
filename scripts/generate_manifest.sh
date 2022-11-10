@@ -5,6 +5,7 @@ set -evo pipefail
 # utility script to generate manifest file given a release
 
 BASE_DIR="$1"
+TEMPLATE_PATH="$2"
 
 HEAD_URL='https://github.com/scriptonist/hasura-cli-track/releases/download';
 
@@ -26,6 +27,6 @@ yq "
 
   .platforms[2].uri = \"$HEAD_URL/$WINDOWS_AMD64_ASSET\" |
   .platforms[2].sha256 = \"$WINDOWS_AMD64_ASSET_SHA256\" 
-" template-manifest.yaml > manifest.yaml
+" "$TEMPLATE_PATH" > manifest.yaml
 
 
