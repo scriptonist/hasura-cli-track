@@ -1,0 +1,211 @@
+{
+	"type": "bulk",
+	"source": "default",
+	"resource_version": 9,
+	"args": [
+		{
+			"type": "pg_create_object_relationship",
+			"args": {
+				"name": "artist",
+				"table": {
+					"name": "albums",
+					"schema": "public"
+				},
+				"using": {
+					"foreign_key_constraint_on": "artist_id"
+				},
+				"source": "default"
+			}
+		},
+		{
+			"type": "pg_create_array_relationship",
+			"args": {
+				"name": "tracks",
+				"table": {
+					"name": "albums",
+					"schema": "public"
+				},
+				"using": {
+					"foreign_key_constraint_on": {
+						"table": {
+							"name": "tracks",
+							"schema": "public"
+						},
+						"column": "album_id"
+					}
+				},
+				"source": "default"
+			}
+		},
+		{
+			"type": "pg_create_array_relationship",
+			"args": {
+				"name": "albums",
+				"table": {
+					"name": "artists",
+					"schema": "public"
+				},
+				"using": {
+					"foreign_key_constraint_on": {
+						"table": {
+							"name": "albums",
+							"schema": "public"
+						},
+						"column": "artist_id"
+					}
+				},
+				"source": "default"
+			}
+		},
+		{
+			"type": "pg_create_array_relationship",
+			"args": {
+				"name": "tracks",
+				"table": {
+					"name": "genres",
+					"schema": "public"
+				},
+				"using": {
+					"foreign_key_constraint_on": {
+						"table": {
+							"name": "tracks",
+							"schema": "public"
+						},
+						"column": "genre_id"
+					}
+				},
+				"source": "default"
+			}
+		},
+		{
+			"type": "pg_create_array_relationship",
+			"args": {
+				"name": "tracks",
+				"table": {
+					"name": "media_types",
+					"schema": "public"
+				},
+				"using": {
+					"foreign_key_constraint_on": {
+						"table": {
+							"name": "tracks",
+							"schema": "public"
+						},
+						"column": "media_type_id"
+					}
+				},
+				"source": "default"
+			}
+		},
+		{
+			"type": "pg_create_array_relationship",
+			"args": {
+				"name": "playlist_tracks",
+				"table": {
+					"name": "playlists",
+					"schema": "public"
+				},
+				"using": {
+					"foreign_key_constraint_on": {
+						"table": {
+							"name": "playlist_track",
+							"schema": "public"
+						},
+						"column": "playlist_id"
+					}
+				},
+				"source": "default"
+			}
+		},
+		{
+			"type": "pg_create_object_relationship",
+			"args": {
+				"name": "playlist",
+				"table": {
+					"name": "playlist_track",
+					"schema": "public"
+				},
+				"using": {
+					"foreign_key_constraint_on": "playlist_id"
+				},
+				"source": "default"
+			}
+		},
+		{
+			"type": "pg_create_object_relationship",
+			"args": {
+				"name": "track",
+				"table": {
+					"name": "playlist_track",
+					"schema": "public"
+				},
+				"using": {
+					"foreign_key_constraint_on": "track_id"
+				},
+				"source": "default"
+			}
+		},
+		{
+			"type": "pg_create_object_relationship",
+			"args": {
+				"name": "album",
+				"table": {
+					"name": "tracks",
+					"schema": "public"
+				},
+				"using": {
+					"foreign_key_constraint_on": "album_id"
+				},
+				"source": "default"
+			}
+		},
+		{
+			"type": "pg_create_object_relationship",
+			"args": {
+				"name": "genre",
+				"table": {
+					"name": "tracks",
+					"schema": "public"
+				},
+				"using": {
+					"foreign_key_constraint_on": "genre_id"
+				},
+				"source": "default"
+			}
+		},
+		{
+			"type": "pg_create_object_relationship",
+			"args": {
+				"name": "media_type",
+				"table": {
+					"name": "tracks",
+					"schema": "public"
+				},
+				"using": {
+					"foreign_key_constraint_on": "media_type_id"
+				},
+				"source": "default"
+			}
+		},
+		{
+			"type": "pg_create_array_relationship",
+			"args": {
+				"name": "playlist_tracks",
+				"table": {
+					"name": "tracks",
+					"schema": "public"
+				},
+				"using": {
+					"foreign_key_constraint_on": {
+						"table": {
+							"name": "playlist_track",
+							"schema": "public"
+						},
+						"column": "track_id"
+					}
+				},
+				"source": "default"
+			}
+		}
+	]
+}

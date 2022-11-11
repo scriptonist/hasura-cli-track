@@ -20,6 +20,7 @@ pub struct Cli {
 #[derive(Subcommand)]
 pub enum Commands {
     Tables(commands::tables::Cmd),
+    Relationships(commands::relationships::Cmd),
 }
 
 impl Cli {}
@@ -29,6 +30,7 @@ pub async fn main() -> Result<()> {
 
     match &cli.command {
         Commands::Tables(cmd) => cmd.run(&cli).await?,
+        Commands::Relationships(cmd) => cmd.run(&cli).await?,
     };
 
     Ok(())
